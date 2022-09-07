@@ -6707,4 +6707,43 @@ public struct _FormatRules {
             }
         }
     }
+    
+    // -------------------------------------------------------------------------
+    // MARK: - DigiDNA additions
+    // -------------------------------------------------------------------------
+    
+    fileprivate static func enforceSpaceBetween( formatter: Formatter, start: String, end: String )
+    {
+        formatter.forEach( .startOfScope( start ) )
+        {
+            i, _ in
+            
+            if let nextToken = formatter.token( at: i + 1 )
+            {
+                if nextToken.isSpaceOrLinebreak                                         == false,
+                   [ .endOfScope( end ), .startOfScope( start ) ].contains( nextToken ) == false
+                {
+                    formatter.insert( .space( " " ), at: i + 1 )
+                }
+            }
+        }
+        
+        formatter.forEach( .endOfScope( end ) )
+        {
+            i, _ in
+            
+            if let prevToken = formatter.token( at: i - 1 )
+            {
+                if prevToken.isSpaceOrLinebreak                                         == false,
+                   [ .endOfScope( end ), .startOfScope( start ) ].contains( prevToken ) == false
+                {
+                    formatter.insert( .space( " " ), at: i )
+                }
+            }
+        }
+    }
+    
+    let addSpaceInsideParens:   FormatRule = FormatRule( help: "Add space inside parentheses." ) { _FormatRules.enforceSpaceBetween( formatter: $0, start: "(", end: ")" ) }
+    let addSpaceInsideBrackets: FormatRule = FormatRule( help: "Add space inside brackets." )    { _FormatRules.enforceSpaceBetween( formatter: $0, start: "[", end: "]" ) }
+    let addSpaceInsideGenerics: FormatRule = FormatRule( help: "Add space angle brackets." )     { _FormatRules.enforceSpaceBetween( formatter: $0, start: "<", end: ">" ) }
 }
