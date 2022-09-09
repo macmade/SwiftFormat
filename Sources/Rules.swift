@@ -6743,7 +6743,7 @@ public struct _FormatRules {
         }
     }
     
-    let addSpaceInsideParens:   FormatRule = FormatRule( help: "Add space inside parentheses." ) { _FormatRules.enforceSpaceBetween( formatter: $0, start: "(", end: ")" ) }
-    let addSpaceInsideBrackets: FormatRule = FormatRule( help: "Add space inside brackets." )    { _FormatRules.enforceSpaceBetween( formatter: $0, start: "[", end: "]" ) }
-    let addSpaceInsideGenerics: FormatRule = FormatRule( help: "Add space angle brackets." )     { _FormatRules.enforceSpaceBetween( formatter: $0, start: "<", end: ">" ) }
+    let x_addSpaceInsideParens:   FormatRule = FormatRule( help: "Add space inside parentheses." ) { _FormatRules.enforceSpaceBetween( formatter: $0, start: "(", end: ")" ) }
+    let x_addSpaceInsideBrackets: FormatRule = FormatRule( help: "Add space inside brackets." )    { _FormatRules.enforceSpaceBetween( formatter: $0, start: "[", end: "]" ) }
+    let x_addSpaceInsideGenerics: FormatRule = FormatRule( help: "Add space angle brackets." )     { _FormatRules.enforceSpaceBetween( formatter: $0, start: "<", end: ">" ) }
 }
